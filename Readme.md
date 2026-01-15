@@ -4,6 +4,8 @@
 
 TODOS:
 
+- [x] init Database
+
 - [ ] build Bronze Layer
 
   - [ ] Analyse Source systems
