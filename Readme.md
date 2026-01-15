@@ -1,3 +1,3 @@
 # SQL WareHouse
 
-![Data Architecture](sources.svg)
+![Data Architecture](sources.excalidraw.svg)
