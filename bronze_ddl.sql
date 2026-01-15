@@ -1,11 +1,3 @@
-IF NOT EXISTS (SELECT *
-FROM sys.schemas
-WHERE name = 'bronze')
-BEGIN
-    EXEC('CREATE SCHEMA bronze');
-END
-GO
-
 IF OBJECT_ID('bronze.crm_cust_info','u') is NOT NULL DROP table  bronze.crm_cust_info;
 
 CREATE TABLE bronze.crm_cust_info
