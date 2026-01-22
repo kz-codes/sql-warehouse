@@ -1,46 +1,23 @@
--- Valed cid?
+-- cid valid?
 SELECT
     cid,
-    bdate,
-    gen
-from bronze.erp_cust_az12
-WHERE cid NOT in (select distinct cst_key
-from silver.crm_cust_info);
+    cntry
+from bronze.erp_loc_a101;
 
-
--- out of range dates
-SELECT distinct bdate
-from bronze.erp_cust_az12
-WHERE bdate < '1916-01-01' OR bdate > GETDATE();
-
-
---- data standardization and consistency
+-- DAta consistency
 SELECT distinct
-    gen
-FROM bronze.erp_cust_az12;
+    cntry
+from bronze.erp_loc_a101;
 
--- Valed cid?
+
+-- cid valid?
 SELECT
     cid,
-    bdate,
-    gen
-from silver.erp_cust_az12
-WHERE cid NOT in (select distinct cst_key
-from silver.crm_cust_info);
+    cntry
+from silver.erp_loc_a101;
 
-
--- out of range dates
-SELECT distinct bdate
-from silver.erp_cust_az12
-WHERE bdate < '1916-01-01' OR bdate > GETDATE();
-
-
---- data standardization and consistency
+-- DAta consistency
 SELECT distinct
-    gen
-FROM silver.erp_cust_az12;
+    cntry
+from silver.erp_loc_a101;
 
-
-SELECT top 300
-    *
-from silver.erp_cust_az12;

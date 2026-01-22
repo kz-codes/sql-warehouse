@@ -20,3 +20,5 @@
   - if price is invalid, derive it from sales and price
 - `erp_cust_az12` has inconsistent `cid` as some have NAS in front
 - => remove as it should match with `crm _cust_info`
+- `erp_loc_a101` the cid has a '-' inside it replace it with ''.
+- `cntry` column has values that end with `\r` which the TRIM() method doesn't remove
