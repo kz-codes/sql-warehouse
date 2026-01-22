@@ -1,8 +1,14 @@
 # SQL WareHouse
 
-![Data Architecture](sources.excalidraw.svg)
+## Data Architecture
 
-TODOS:
+![Data Architecture](./images/sources.excalidraw.svg)
+
+## Entity relations
+
+![Entity Relations](./images/entity_relations.png)
+
+### TODOS
 
 - [x] init Database
 
