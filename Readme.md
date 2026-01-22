@@ -17,10 +17,13 @@
   - [x] code data ingestion
   - [x] validate data -> completeness and schema checks
 
-- [ ] Build Silver Layer
-  - [ ] Explore Data
-  - [ ] code data cleansing
-  - [ ] validation -> correctness checks
+- [x] Build Silver Layer
+  - [x] Explore Data
+  - [x] code data cleansing
+    - [x] SCD2 => get only latest data
+    - [x] unwanted spaces in nvarchar datatypes
+    - [x] Low cardinality columns are expanded
+  - [x] validation -> correctness checks
 
 - [ ] Build Gold Layer
   - [ ] explore Business Objects
