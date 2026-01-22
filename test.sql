@@ -1,19 +1,32 @@
--- SELECT top 100
---     *
--- from bronze.crm_cust_info;
-GO
-SELECT top 100
-    *
-from bronze.crm_prd_info;
-GO
--- SELECT top 100
---     *
--- from bronze.crm_sales_details;
--- GO
+-- SELECT cst_id, COUNT(*)
+-- FROM bronze.crm_cust_info
+-- GROUP BY cst_id
+-- having COUNT(*) > 1;
 
-SELECT top 5
+-- with
+--     cte_cst
+--     as
+--     (
+--         SELECT cst_id, COUNT(*) as cnt
+--         FROM bronze.crm_cust_info
+--         GROUP BY cst_id
+--         having COUNT(*) > 1 OR cst_id IS null
+
+--     )
+-- SELECT *
+-- FROM bronze.crm_cust_info
+-- WHERE cst_id IN (
+--     SELECT cst_id
+-- from cte_cst
+-- );
+
+SELECT
     *
-from bronze.erp_cust_az12;
-SELECT top 5
-    *
-from bronze.erp_px_cat_g1v2;
+FROM(
+SELECT
+        *,
+        ROW_NUMBER() OVER(PARTITION BY cst_id ORDER BY cst_create_date DESC) rank
+    FROM bronze.crm_cust_info
+
+)t
+WHERE rank = 1;
