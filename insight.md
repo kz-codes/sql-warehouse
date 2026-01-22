@@ -18,3 +18,5 @@
   - if price is negative, convert to positive
   - if sales is invalid, derive it from quantity and price
   - if price is invalid, derive it from sales and price
+- `erp_cust_az12` has inconsistent `cid` as some have NAS in front
+- => remove as it should match with `crm _cust_info`

@@ -1,45 +1,46 @@
--- -- check in valid dates
--- SELECT
---     nullif(sls_order_dt, 0) sls_order_dt
--- FROM bronze.crm_sales_details
--- WHERE sls_order_dt <=0
---     or len(sls_order_dt) != 8
---     or sls_order_dt > 20500101
---     or sls_order_dt < 19000101
-
--- SELECT *
--- FROM bronze.crm_sales_details
--- WHERE sls_order_dt > sls_ship_dt or sls_order_dt > sls_due_dt;
+-- Valed cid?
+SELECT
+    cid,
+    bdate,
+    gen
+from bronze.erp_cust_az12
+WHERE cid NOT in (select distinct cst_key
+from silver.crm_cust_info);
 
 
--- -- Sales = quantity * price
--- SELECT distinct
---     sls_sales,
---     sls_quantity,
---     sls_price
--- from bronze.crm_sales_details
--- WHERE sls_sales is NULL or sls_quantity is NULL or sls_price is null
---     or sls_sales <= 0 or sls_quantity  <= 0 OR sls_price <= 0
---     or sls_sales != sls_quantity * sls_price;
+-- out of range dates
+SELECT distinct bdate
+from bronze.erp_cust_az12
+WHERE bdate < '1916-01-01' OR bdate > GETDATE();
 
 
--- check in valid dates
-
-SELECT *
-FROM silver.crm_sales_details
-WHERE sls_order_dt > sls_ship_dt or sls_order_dt > sls_due_dt;
-
-
--- Sales = quantity * price
+--- data standardization and consistency
 SELECT distinct
-    sls_sales,
-    sls_quantity,
-    sls_price
-from silver.crm_sales_details
-WHERE sls_sales is NULL or sls_quantity is NULL or sls_price is null
-    or sls_sales <= 0 or sls_quantity  <= 0 OR sls_price <= 0
-    or sls_sales != sls_quantity * sls_price;
+    gen
+FROM bronze.erp_cust_az12;
+
+-- Valed cid?
+SELECT
+    cid,
+    bdate,
+    gen
+from silver.erp_cust_az12
+WHERE cid NOT in (select distinct cst_key
+from silver.crm_cust_info);
+
+
+-- out of range dates
+SELECT distinct bdate
+from silver.erp_cust_az12
+WHERE bdate < '1916-01-01' OR bdate > GETDATE();
+
+
+--- data standardization and consistency
+SELECT distinct
+    gen
+FROM silver.erp_cust_az12;
+
 
 SELECT top 300
     *
-from silver.crm_sales_details;
+from silver.erp_cust_az12;
