@@ -11,3 +11,10 @@
   - Start > end in prd_info
   - Instead of end time let the end date be (start of next record - 1).
   - **Window** => LEAD
+- `sales_details` has inconsistent sales, quantity and price data
+  - as per sales = quantity \* data
+  - also, many of the values are NULL or Negative
+- RULES - pattern to be noted
+  - if price is negative, convert to positive
+  - if sales is invalid, derive it from quantity and price
+  - if price is invalid, derive it from sales and price
