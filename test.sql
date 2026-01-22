@@ -1,23 +1,13 @@
--- cid valid?
 SELECT
-    cid,
-    cntry
-from bronze.erp_loc_a101;
+    id,
+    cat,
+    subcat,
+    maintenance
+FROM bronze.erp_px_cat_g1v2;
 
--- DAta consistency
-SELECT distinct
-    cntry
-from bronze.erp_loc_a101;
+-- unwanted spaces
+SELECT *
+FROM bronze.erp_px_cat_g1v2
+WHERE cat != TRIM(cat)
 
-
--- cid valid?
-SELECT
-    cid,
-    cntry
-from silver.erp_loc_a101;
-
--- DAta consistency
-SELECT distinct
-    cntry
-from silver.erp_loc_a101;
 
