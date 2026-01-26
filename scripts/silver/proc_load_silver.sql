@@ -46,8 +46,7 @@ BEGIN
         FROM
             bronze.crm_cust_info
     ) t
-    WHERE
-    rank = 1
+    WHERE rank = 1
     SET @end_time = GETDATE() 
     PRINT 'Inserted in ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + 's' 
     

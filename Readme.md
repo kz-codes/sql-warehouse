@@ -25,7 +25,7 @@
     - [x] Low cardinality columns are expanded
   - [x] validation -> correctness checks
 
-- [ ] Build Gold Layer
-  - [ ] explore Business Objects
-  - [ ] code data integration
-  - [ ] validation -> data integration checks
+- [x] Build Gold Layer
+  - [x] explore Business Objects
+  - [x] code data integration
+  - [x] validation -> data integration checks
