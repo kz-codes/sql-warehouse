@@ -1,5 +1,7 @@
 # SQL WareHouse
 
+Look at [Notes](./notes.pdf) for Notes taken along
+
 ## Data Architecture
 
 ![Data Architecture](./images/sources.excalidraw.svg)
