@@ -1,3 +1,28 @@
+/*
+=================================================================================
+Script Name: Initialize Silver Layer Tables
+==================================================================================
+Description:
+    This script defines the Data Definition Language (DDL) for the 'Silver' 
+    schema. It sets up the cleansed and standardized tables from bronze layer.
+
+Logic:
+   - Metadata Tracking:Added 'dwh_create_date' using DATETIME2 to track when records were processed into the warehouse.
+    - Data Type Refinement: Dates and numeric fields are more strictly defined to ensure consistency
+    - DataLineage: Prepared for standardized naming conventions and cleansed values.
+
+Table Groups:
+    - CRM: crm_cust_info, crm_prd_info, crm_sales_details.
+    - ERP: erp_loc_a101, erp_cust_az12, erp_px_cat_g1v2.
+
+==============================================================================
+CAUTION:
+    Running this script will TRUNCATE and DROP all existing data in the 
+    Silver layer tables.
+==============================================================================
+*/
+
+
 IF OBJECT_ID('silver.crm_cust_info','u') is NOT NULL DROP table  silver.crm_cust_info;
 
 CREATE TABLE silver.crm_cust_info

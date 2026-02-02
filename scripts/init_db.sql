@@ -1,3 +1,31 @@
+/*
+=======================================================================================
+Script Name: Database and Schema Setup
+=======================================================================================
+Description: 
+    This script initializes the primary Data Warehouse environment. It ensures 
+    a clean state by dropping any existing database named 'warehouse' and 
+    recreating it from scratch. It also defines the logical layers (schemas) 
+    required for the Medallion Architecture.
+
+Architecture Layers:
+    - Bronze: Raw data ingestion (Staging).
+    - Silver: Cleansed, filtered, and standardized data.
+    - Gold:   Business-ready aggregated data and Star Schemas (Reporting).
+
+Logic:
+    1. Switches context to 'master' to perform administrative tasks.
+    2. Drops the 'warehouse' database if it exists (Clean Rebuild).
+    3. Creates a fresh 'warehouse' database.
+    4. Navigates into the new database.
+    5. Dynamically creates the Bronze, Silver, and Gold schemas if they 
+       do not already exist.
+===================================================================================
+CAUTION: 
+    Executing this script will PERMANENTLY DELETE the entire 'warehouse' 
+    database, including all tables, views, and data across all schemas.
+=====================================================================================
+*/
 use master;
 GO
 

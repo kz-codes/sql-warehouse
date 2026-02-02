@@ -1,3 +1,39 @@
+/*
+================================================================
+Stored Procedure: silver.load_silver
+=================================================================
+
+Description:
+    This procedure orchestrates the Transformation and Loading (TL) process 
+    from the 'Bronze' layer to the 'Silver' layer.
+
+Data Transformation & Quality Rules:
+    - Customer Data: 
+        * Deduplication: Performs "Last Record Wins" using ROW_NUMBER() based on cst_id.
+        * Standardization: Maps 'S'/'M' to 'Single'/'Married' and 'F'/'M' to full gender names.
+        * Cleaning: Trims whitespace from name fields.
+    - Product Data:
+        * Key Parsing: Splits prd_key into cat_id and a cleaned prd_key.
+        * Price Integrity: Replaces NULL costs with 0.
+        * SCD Logic: Calculates prd_end_dt using LEAD() to create non-overlapping timelines.
+    - Sales Data:
+        * Date Casting: Converts integer dates (YYYYMMDD) to DATE format; handles invalid dates.
+        * Financial Logic: Derives Sales/Price if values are NULL or mathematically inconsistent.
+    - ERP Data:
+        * Integration Prep: Trims prefixes ('NAS-') and removes dashes from IDs for joining.
+        * Country Normalization: Consolidates various country spellings (e.g., 'USA', 'US') into standards.
+
+Error Handling:
+    - Implemented a TRY CATCH Block to capture load failures
+    - Error Info: number, messsage and state
+==============================================================================
+Parameters: None
+============================================================================
+Execution:
+    EXEC silver.load_silver;
+================================================================================
+*/
+
 CREATE
 OR ALTER PROCEDURE silver.load_silver
 AS
@@ -212,7 +248,12 @@ BEGIN
     SET @end_time = GETDATE() 
     PRINT 'Inserted in ' + CAST(DATEDIFF(second, @start_time, @end_time) AS NVARCHAR) + 's'
 END TRY 
-BEGIN CATCH
-    
+BEGIN CATCH    
+    PRINT '======================';
+    PRINT 'Error: BRONZE layer';
+    PRINT 'error msg: ' + ERROR_NUMBER();
+    PRINT 'error no: '  + CAST(error_number() as NVARCHAR)
+    PRINT 'error state: '  + CAST(error_state() as NVARCHAR)
+    PRINT '======================';
 END CATCH
 END

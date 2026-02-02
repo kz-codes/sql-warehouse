@@ -1,3 +1,32 @@
+/*
+=================================================================================
+Script Name: Initialize Bronze Layer Tables
+==================================================================================
+Description:
+    This script defines the Data Definition Language (DDL) for the 'Bronze' 
+    schema. It sets up the raw staging tables for data ingested from 
+    CRM and ERP source systems.
+
+Logic:
+    - Checks for the existence of each table using OBJECT_ID.
+    - Drops existing tables to ensure a clean schema(Drop & Recreate pattern).
+    - Creates tables with data types optimized for raw ingestion.
+
+Source Systems:
+    - CRM: Customer Info, Product Info, and Sales Details.
+    - ERP:Location(a101), Demographics(az12), and Product Categories(g1v2).
+
+Note:
+    No constraints(Primary Keys/Foreign Keys) are applied at this stage to 
+    allow for the ingestion of raw, non-validated data for later processing 
+    in the Silver layer.
+==============================================================================
+CAUTION:
+    Running this script will TRUNCATE and DROP all existing data in the 
+    Bronze layer tables.
+==============================================================================
+*/
+
 IF OBJECT_ID('bronze.crm_cust_info','u') is NOT NULL DROP table  bronze.crm_cust_info;
 
 CREATE TABLE bronze.crm_cust_info

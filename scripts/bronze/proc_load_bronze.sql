@@ -1,3 +1,27 @@
+/*
+================================================================
+Stored Procedure: bronze.load_bronze
+=================================================================
+
+Description:
+    This procedure orchestretes the Bulk Load process for the Bronze Layer.
+
+Workflow:
+    1. Truncate existing data in Bronze tables to ensure fresh load.
+    2. perform 'BULK INSERT' for each source file.
+    3. Tracks and Prints the execution time to load each table.
+
+Error Handling:
+    - Implemented a TRY CATCH Block to capture load failures
+    - Error Info: number, messsage and state
+==============================================================================
+Parameters: None
+============================================================================
+Execution:
+    EXEC bronze.load_bronze;
+================================================================================
+*/
+
 CREATE OR ALTER PROCEDURE bronze.load_bronze
 AS
 BEGIN

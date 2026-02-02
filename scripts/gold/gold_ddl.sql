@@ -1,3 +1,30 @@
+/*
+==========================================================================================
+Script Name: Initialize Gold Layer Views (Star Schema)
+=====================================================================================
+Description: 
+    This script creates the final consumption layer for the Data Warehouse. 
+    It defines 'Business Entities' by joining multiple Silver tables into 
+    Dimensions and a Fact table. Star Schema
+
+Views Created:
+    1. gold.dim_customers: 
+       - Integrates CRM profile data with ERP demographics and locations.
+       - Generates a surrogate key (customer_key).
+       - Implements COALESCE logic to fill gender gaps between systems.
+    
+    2. gold.dim_products:
+       - Merges CRM product data with ERP category hierarchies.
+       - Filters for 'Current' products (where prd_end_dt IS NULL).
+       - Flattens the hierarchy (Category to Sub-category) for easy reporting.
+
+    3. gold.fact_sales:
+       - The central transactional table containing business metrics (Sales, Qty).
+       - Replaces natural keys (IDs) with Surrogate keys from Dimensions
+         to ensure referential integrity and performance.
+*/
+
+
 CREATE VIEW gold.dim_customers
 AS
     (SELECT
